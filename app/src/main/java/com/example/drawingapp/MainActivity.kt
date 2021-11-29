@@ -4,6 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -93,6 +96,11 @@ class MainActivity : AppCompatActivity() {
             requestStoragePermission()
         }
 
+        val ibSave: ImageButton = findViewById(R.id.ib_save)
+        ibSave.setOnClickListener {
+            requestStoragePermission()
+        }
+
     }
 
     private fun showBrushSizeSelectorDialog(){
@@ -151,6 +159,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     private fun showRationaleDialog(
         title : String,
         message : String
@@ -163,6 +172,4 @@ class MainActivity : AppCompatActivity() {
             }
         builder.create().show()
     }
-
-
 }
