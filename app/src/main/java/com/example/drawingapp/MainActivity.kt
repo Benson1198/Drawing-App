@@ -83,10 +83,10 @@ class MainActivity : AppCompatActivity() {
             drawingView?.onClickUndo()
         }
 
-//        val ibRedo:ImageButton = findViewById(R.id.ib_redo)
-//        ibRedo.setOnClickListener {
-//            drawingView?.onClickRedo()
-//        }
+        val ibRedo:ImageButton = findViewById(R.id.ib_redo)
+        ibRedo.setOnClickListener {
+            drawingView?.onClickRedo()
+        }
 
         val ibGallery: ImageButton = findViewById(R.id.ib_gallery)
         ibGallery.setOnClickListener {
