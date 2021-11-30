@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private var drawingView:DrawingView? = null
     private var mImageButtonCurrentPaint:ImageButton? = null
+    var customProgressDialog: Dialog? = null
 
     val openGalleryLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -104,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         val ibSave:ImageButton = findViewById(R.id.ib_save)
         ibSave.setOnClickListener{
             if (isReadStorageAllowed()){
+                showProgressDialog()
                 lifecycleScope.launch{
                     val flDrawingView:FrameLayout = findViewById(R.id.fl_drawing_view_container)
                     saveBitmapFile(getBitmapFromView(flDrawingView))
@@ -226,6 +229,7 @@ class MainActivity : AppCompatActivity() {
                     fo.close()
                     result = f.absolutePath
                     runOnUiThread {
+                        cancelProgressDialog()
                         if (!result.isEmpty()) {
                             Toast.makeText(
                                 this@MainActivity,
@@ -248,4 +252,26 @@ class MainActivity : AppCompatActivity() {
         }
         return result
     }
+
+    private fun showProgressDialog(){
+        customProgressDialog = Dialog(this@MainActivity)
+
+        customProgressDialog?.setContentView(R.layout.dialog_custom_progress)
+
+        customProgressDialog?.show()
+    }
+
+    private fun cancelProgressDialog(){
+        if(customProgressDialog != null){
+            customProgressDialog?.dismiss()
+            customProgressDialog = null
+        }
+    }
+
+//    private fun shareImage(result: Stirng){
+//        MediaScannerConnection.scanFile(this, arrayOf(result),null){
+//            path, uri->
+//
+//        }
+//    }
 }
